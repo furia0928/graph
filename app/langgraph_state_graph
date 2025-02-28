@@ -1,0 +1,19 @@
+digraph {
+	START [shape=oval]
+	get_chat_history [shape=box]
+	route_query [shape=diamond]
+	vector_search [shape=box]
+	web_search [shape=box]
+	generate [shape=ellipse]
+	save_chat_history [shape=parallelogram]
+	END [shape=oval]
+	START -> get_chat_history
+	get_chat_history -> route_query
+	route_query -> vector_search [label=search]
+	route_query -> generate [label=direct_answer]
+	vector_search -> web_search [label=no_docs_found]
+	vector_search -> generate [label=docs_found]
+	web_search -> generate
+	generate -> save_chat_history
+	save_chat_history -> END
+}
