@@ -4,7 +4,7 @@ RUN pip install --upgrade pip
 
 WORKDIR /app
 
-COPY requirements.langgraph.txt .
-RUN pip install -r requirements.langgraph.txt
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
 CMD ["langgraph", "dev", "--host=0.0.0.0", "--port=2024"]
