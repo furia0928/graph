@@ -1,0 +1,10 @@
+FROM python:3.11-slim
+
+RUN pip install --upgrade pip
+
+WORKDIR /app
+
+COPY requirements.langgraph.txt .
+RUN pip install -r requirements.langgraph.txt
+
+CMD ["langgraph", "dev", "--host=0.0.0.0", "--port=2024"]
