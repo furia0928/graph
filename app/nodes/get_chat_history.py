@@ -1,8 +1,9 @@
+import os
 from pymongo import MongoClient
 from app.chat_state import ChatState
 
 # ✅ MongoDB 설정
-MONGO_URI = "mongodb://localhost:27017"
+MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017")
 DB_NAME = "chat_memory"
 CHAT_COLLECTION = "conversations"  # 대화 기록 저장 컬렉션
 SUMMARY_COLLECTION = "summaries"   # 요약 데이터 저장 컬렉션
