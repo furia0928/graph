@@ -27,15 +27,33 @@ MongoDB를 실행하고 설정 파일을 업데이트한 후 실행해야 합니
 
 ## 프로젝트 구조
 ```
-/graph
-├── app
-│   ├── main.py  # 메인 실행 파일
-│   ├── utils.py  # 유틸리티 함수
-│   ├── db.py  # MongoDB 연결 및 데이터 처리
-│   ├── graph.py  # 그래프 데이터 처리 및 시각화
-├── requirements.txt  # 필요한 라이브러리 목록
-├── .gitignore  # Git에서 제외할 파일 목록
-└── README.md  # 프로젝트 문서
+graph/
+├── .langgraph_api/               # LangGraph 관련 임시 파일 및 빌드 산출물이 생성될 수 있는 디렉토리
+├── .venv/                        # Python 가상환경 폴더 (개발 시 생성)
+├── src/                          
+│   ├── api/                     # FastAPI 애플리케이션 관련 코드
+│   │   ├── endpoints/           # API 엔드포인트 모듈들
+│   │   │   └── chat.py          # 예시: 채팅 관련 엔드포인트 정의
+│   │   ├── models/              # Pydantic 모델 정의
+│   │   │   └── chat.py          # ChatRequest, ChatResponse 클래스 정의
+│   │   ├── services/            # API와 관련된 비즈니스 로직
+│   │   │   └── chat_service.py  # 예시: process_chat 함수 등
+│   │   └── main.py              # FastAPI 애플리케이션 진입점 (app = FastAPI() 등)
+│   └── graph/                   # LangGraph 및 대화 처리 관련 코드
+│       ├── nodes/             # LangGraph 노드 함수들
+│       │   ├── get_chat_history.py        # MongoDB에서 대화 기록 조회
+│       │   ├── save_chat_history.py         # 대화 기록과 생성/요약 데이터를 MongoDB에 저장
+│       │   └── summarize_conversation.py    # OpenAI GPT-4를 호출해 대화 요약 생성 (함수명: summarize_conversation)
+│       ├── agent.py             # LangGraph 에이전트 생성 및 노드/엣지 설정
+│       ├── conversation_state.py# 대화 상태 (ChatState) 정의 (Pydantic 모델)
+│       └── langgraph.json       # LangGraph 설정 파일
+├── docker-compose.yml            # 여러 서비스(Redis, MongoDB, FastAPI, LangGraph, ChromaDB 등) 실행을 위한 Compose 파일
+├── Dockerfile.fastapi            # FastAPI 서버를 위한 Dockerfile (소스 전체 복사, PYTHONPATH 설정 등)
+├── Dockerfile.langgraph          # LangGraph 서비스를 위한 Dockerfile (소스 전체 복사, CMD 실행 시 langgraph dev 등)
+├── .env                          # 환경변수 파일 (예: MONGO_URI, OPENAI_API_KEY 등)
+├── requirements.txt              # Python 의존성 목록 (FastAPI, pymongo, langchain, python-dotenv, 등)
+└── README.md                     # 프로젝트 소개 및 사용법 등 문서
+
 ```
 
 ## 주요 기능
