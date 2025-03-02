@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def summarize_conversation(state: ChatState, config: dict):
+    model = config["configurable"]["model"]
     recent_history = state.history[:2]
 
     history_messages = convert_conversation_docs_to_messages(recent_history)
@@ -41,7 +42,7 @@ def summarize_conversation(state: ChatState, config: dict):
     )
     print("summarize_conversation prompt: ", formatted_messages)
 
-    llm = ChatOpenAI(model="gpt-4o", temperature=0.5, max_tokens=400)
+    llm = ChatOpenAI(model=model, temperature=0.5, max_tokens=400)
     response = llm.invoke(formatted_messages)
     print("summarize_conversation", response.content)
     new_summary = response.content.strip()

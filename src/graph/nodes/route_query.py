@@ -8,7 +8,9 @@ class QueryRoutingResponse(BaseModel):
     binary_score: str = Field(description="Decide if the question can be answered directly ('direct') or needs additional search ('search')")
 
 def route_query(state: ChatState, config: dict):
-    llm = ChatOpenAI(model="gpt-4o", temperature=0).with_structured_output(QueryRoutingResponse)
+    model = config["configurable"]["model"]
+    print(model)
+    llm = ChatOpenAI(model=model, temperature=0).with_structured_output(QueryRoutingResponse)
 
     # ✅ 프롬프트 구성
     prompt = ChatPromptTemplate.from_messages([

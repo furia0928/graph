@@ -7,11 +7,11 @@ def main():
     # 테스트용 사용자 정보 및 질문
     member_id = "user_1"
     chat_id = "chat_1"
-    question = "9 내 이름 까먹지 않았지?"
+    question = "어디 사는지 알아?"
 
     inputs = {"question": question, "member_id": member_id, "chat_id": chat_id}
     config = {
-        "configurable": {"chat_id": chat_id, "member_id": member_id},
+        "configurable": {"chat_id": chat_id, "member_id": member_id, "model": "gpt-4o"},
         "recursion_limit": 10
     }
 

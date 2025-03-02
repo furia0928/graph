@@ -6,8 +6,8 @@ from src.graph.utils import convert_conversation_docs_to_messages
 from dotenv import load_dotenv
 load_dotenv()
 
-def generate(state: ChatState):
-
+def generate(state: ChatState, config: dict):
+    model = config["configurable"]["model"]
     history_messages = convert_conversation_docs_to_messages(state.history)
     print("history_messages", history_messages)
     prompt = ChatPromptTemplate.from_messages([
@@ -22,7 +22,7 @@ def generate(state: ChatState):
         question=state.question,
         history=history_messages
     )
-    llm = ChatOpenAI(model="gpt-4o", temperature=0.7, max_tokens=200)
+    llm = ChatOpenAI(model=model, temperature=0.7, max_tokens=200)
     response = llm.invoke(formatted_messages)
     response_text = response.content.strip() if response and hasattr(response, "content") else "죄송합니다. 답변을 생성할 수 없습니다."
     return {"generation": response_text}

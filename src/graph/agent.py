@@ -1,9 +1,15 @@
+from typing import TypedDict
 from langgraph.graph import StateGraph, START, END
 from src.graph.conversation_state import ChatState
 from src.graph.nodes import *
 
+class ConfigSchema(TypedDict):
+    model: str
+    chat_id : str
+    member_id : str
+
 # ✅ LangGraph 그래프 생성
-graph = StateGraph(ChatState)
+graph = StateGraph(ChatState, config_schema=ConfigSchema)
 
 # ✅ 노드 추가
 graph.add_node("get_chat_history", get_chat_history)
