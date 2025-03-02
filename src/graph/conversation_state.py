@@ -7,3 +7,4 @@ class ChatState(BaseModel):
     documents: List[str] = []  # 웹 or 백터 검색 결과 (기본값: 빈 리스트)
     history: List[dict] = []  # 최근 대화 (기본값: 빈 리스트, 최대 갯수: 6개)
     summary: Optional[str] = ""  # 요약 (기본값: 빈 문자열)
+    search_decision: Optional[str] = None  # ✅ 검색 여부 ("direct" 또는 "search")

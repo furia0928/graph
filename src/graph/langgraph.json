@@ -2,7 +2,6 @@
   "graphs": {
     "main": "src/graph/agent.py:agent"
   },
-  "env": ".env",
   "python_version": "3.11",
   "dependencies": ["."]
 }
