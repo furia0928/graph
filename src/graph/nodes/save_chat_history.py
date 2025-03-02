@@ -24,8 +24,8 @@ def save_chat_history(state: ChatState, config: dict):
     question_doc = {
         "member_id": member_id,
         "chat_id": chat_id,
-        "type": "user",
-        "contents": getattr(state, "question", ""),
+        "type": "human",
+        "contents": state.question,
         "registration_dt": now,
         "update_dt": now,
         "status": "active"
@@ -35,7 +35,7 @@ def save_chat_history(state: ChatState, config: dict):
         "member_id": member_id,
         "chat_id": chat_id,
         "type": "ai",
-        "contents": getattr(state, "generation", ""),
+        "contents": state.generation,
         "registration_dt": now,
         "update_dt": now,
         "status": "active"

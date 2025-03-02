@@ -6,19 +6,18 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def summarize_conversation(state: ChatState, config: dict):
-    recent_history = state.history[-3:] if len(state.history) >= 3 else state.history
+    recent_history = state.history[-2:] if len(state.history) >= 3 else state.history
     formatted_history = []
     for chat in recent_history:
-        if chat.get("type") == "human":
-            formatted_history.append({"user": chat.get("content", "")})
-        elif chat.get("type") == "ai":
-            formatted_history.append({"assistant": chat.get("content", "")})
-    history_json = json.dumps(formatted_history, ensure_ascii=False)
+        role = "user" if chat.get("type") == "user" else "assistant"
+        content = chat.get("contents", "")
+        formatted_history.append(f"{role}: {content}")
+    history_str = "\n".join(formatted_history)
     prompt = (
         "다음 대화 내용을 기반으로 새로운 대화 요약을 만들어줘.\n"
         f"기존 요약: {state.summary}\n\n"
         "최근 대화 (리스트 형식):\n"
-        f"{history_json}\n\n"
+        f"{history_str}\n\n"
         "새로운 요약:"
     )
     prompt_template = ChatPromptTemplate.from_messages([
