@@ -12,6 +12,7 @@ graph.add_node("vector_search", vector_search)
 graph.add_node("web_search", web_search)
 graph.add_node("generate", generate)
 graph.add_node("save_chat_history", save_chat_history)
+graph.add_node("summarize_conversation", summarize_conversation)
 
 # ✅ 엣지 추가
 graph.add_edge(START, "get_chat_history")
@@ -33,7 +34,8 @@ graph.add_conditional_edges(
     }
 )
 graph.add_edge("web_search", "generate")
-graph.add_edge("generate", "save_chat_history")
+graph.add_edge("generate", "summarize_conversation")
+graph.add_edge("summarize_conversation", "save_chat_history")
 graph.add_edge("save_chat_history", END)
 
 # ✅ 컴파일

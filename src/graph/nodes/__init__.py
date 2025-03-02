@@ -6,6 +6,7 @@ from src.graph.nodes.generate import generate
 from src.graph.nodes.save_chat_history import save_chat_history
 from src.graph.nodes.decide_to_search import decide_to_search
 from src.graph.nodes.decide_to_web_search import decide_to_web_search
+from src.graph.nodes.summarize_conversation import summarize_conversation
 
 __all__ = [
     "get_chat_history",
@@ -15,5 +16,6 @@ __all__ = [
     "generate",
     "save_chat_history",
     "decide_to_search",
-    "decide_to_web_search"
+    "decide_to_web_search",
+    "summarize_conversation"
 ]

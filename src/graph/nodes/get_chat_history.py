@@ -31,8 +31,8 @@ def get_chat_history(state: ChatState, config: dict):
     for chat in latest_chats:
         if chat.get("type") == "human":
             formatted_history.append({"user": chat.get("content", "")})
-        else:
-            formatted_history.append({"ai": chat.get("content", "")})
+        elif chat.get("type") == "ai":
+            formatted_history.append({"assistant": chat.get("content", "")})
 
     # ✅ 요약 데이터 가져오기 (chat_id 기반)
     summary_data = summary_collection.find_one({"chat_id": chat_id})
