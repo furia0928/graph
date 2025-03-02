@@ -20,15 +20,14 @@ def get_chat_history(state: ChatState, config: dict):
     # ✅ 최신 대화 4개 가져오기
     latest_chats = list(
         chat_collection.find({"chat_id": chat_id})
-        .sort("registration_dt", -1)  # 최신순 정렬
+        .sort("registration_dt", -1)
         .limit(4)
-    )
+    )[::-1]
 
-    # ✅ 요약 데이터 가져오기 (chat_id 기반)
+    print("latest_chats lengths: ", len(latest_chats))
+
     summary_data = summary_collection.find_one({"chat_id": chat_id})
-    summary = summary_data["summary"] if summary_data else ""
 
-    print("history: ", latest_chats)
-    print("summary: ", summary)
+    summary = summary_data["summary"] if summary_data else ""
 
     return {"history": latest_chats, "summary": summary}

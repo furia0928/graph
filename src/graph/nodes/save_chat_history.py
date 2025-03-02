@@ -20,7 +20,6 @@ def save_chat_history(state: ChatState, config: dict):
     member_id = config["configurable"]["member_id"]
 
     now = datetime.datetime.utcnow()
-
     question_doc = {
         "member_id": member_id,
         "chat_id": chat_id,
@@ -31,32 +30,33 @@ def save_chat_history(state: ChatState, config: dict):
         "status": "active"
     }
 
+    now_gen = now + datetime.timedelta(microseconds=1000)
     generation_doc = {
         "member_id": member_id,
         "chat_id": chat_id,
         "type": "ai",
         "contents": state.generation,
-        "registration_dt": now,
-        "update_dt": now,
+        "registration_dt": now_gen,
+        "update_dt": now_gen,
         "status": "active"
     }
 
-    question_result = chat_collection.insert_one(question_doc)
-    generation_result = chat_collection.insert_one(generation_doc)
-
-    print(f"[save_chat_history] Question 저장 완료: {question_result.inserted_id}")
-    print(f"[save_chat_history] Generation 저장 완료: {generation_result.inserted_id}")
+    chat_collection.insert_one(question_doc)
+    chat_collection.insert_one(generation_doc)
 
     summary_doc = {
         "member_id": member_id,
         "chat_id": chat_id,
         "summary": state.summary,
-        "registration_dt": now,
-        "update_dt": now,
+        "registration_dt": now_gen,
+        "update_dt": now_gen,
         "status": "active"
     }
 
-    summary_result = summary_collection.insert_one(summary_doc)
-    print(f"[save_chat_history] Summary 저장 완료: {summary_result.inserted_id}")
+    summary_collection.update_one(
+        {"member_id": member_id, "chat_id": chat_id},
+        {"$set": summary_doc},
+        upsert=True
+    )
 
     return state

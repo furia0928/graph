@@ -7,7 +7,7 @@ def main():
     # 테스트용 사용자 정보 및 질문
     member_id = "user_1"
     chat_id = "chat_1"
-    question = "테스트 질문: Next.js에서 API 요청을 최적화하는 방법은?"
+    question = "9 내 이름 까먹지 않았지?"
 
     inputs = {"question": question, "member_id": member_id, "chat_id": chat_id}
     config = {
