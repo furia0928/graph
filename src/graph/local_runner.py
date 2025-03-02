@@ -1,6 +1,6 @@
 import sys
 import logging
-from app.graph import agent  # 에이전트 모듈 import
+from src.graph.agent import agent
 
 
 def main():

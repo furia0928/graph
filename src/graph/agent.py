@@ -1,6 +1,6 @@
 from langgraph.graph import StateGraph, START, END
-from app.nodes import *
-from app.chat_state import ChatState
+from src.graph.conversation_state import ChatState
+from src.graph.nodes import *
 
 # ✅ LangGraph 그래프 생성
 graph = StateGraph(ChatState)

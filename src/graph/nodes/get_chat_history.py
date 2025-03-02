@@ -1,9 +1,9 @@
 import os
 from pymongo import MongoClient
-from app.chat_state import ChatState
+from src.graph.conversation_state import ChatState
 
 # ✅ MongoDB 설정
-MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017")
+MONGO_URI = os.environ.get("MONGO_URI")
 DB_NAME = "chat_memory"
 CHAT_COLLECTION = "conversations"  # 대화 기록 저장 컬렉션
 SUMMARY_COLLECTION = "summaries"   # 요약 데이터 저장 컬렉션
@@ -23,6 +23,8 @@ def get_chat_history(state: ChatState, config: dict):
         .sort("registration_dt", -1)  # 최신순 정렬
         .limit(4)
     )
+
+    print("latest_chats: ", latest_chats)
 
     # ✅ 포맷팅 (사용자 메시지 & AI 응답 포함)
     formatted_history = []

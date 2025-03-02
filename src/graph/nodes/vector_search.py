@@ -1,4 +1,4 @@
-from app.chat_state import ChatState
+from src.graph.conversation_state import ChatState
 
 
 def vector_search(state: ChatState):

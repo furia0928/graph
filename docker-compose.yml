@@ -22,11 +22,9 @@ services:
       context: .
       dockerfile: Dockerfile.langgraph
     container_name: langgraph
-    command: langgraph dev --host=0.0.0.0 --port=2024
+    command: langgraph dev --host=0.0.0.0 --port=2024 --config src/graph/langgraph.json
     ports:
       - "2024:2024"
-    volumes:
-      - .:/app
     depends_on:
       - redis
       - mongodb
@@ -38,8 +36,6 @@ services:
     container_name: fastapi_server
     ports:
       - "8000:8000"
-    volumes:
-      - .:/app
     environment:
       - MONGO_URI=mongodb://mongodb:27017
     depends_on:

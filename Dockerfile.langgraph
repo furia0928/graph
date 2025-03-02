@@ -5,6 +5,11 @@ RUN pip install --upgrade pip
 WORKDIR /app
 
 COPY requirements.txt .
+
 RUN pip install -r requirements.txt
 
-CMD ["langgraph", "dev", "--host=0.0.0.0", "--port=2024"]
+COPY . /app
+
+ENV PYTHONPATH="/app"
+
+CMD ["langgraph", "dev", "--config", "src/graph/langgraph.json", "--host=0.0.0.0", "--port=2024"]

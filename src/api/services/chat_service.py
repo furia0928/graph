@@ -1,4 +1,4 @@
-from app.graph import agent
+from src.graph.agent import agent
 
 
 def process_chat(chat_request):

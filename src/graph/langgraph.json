@@ -1,6 +1,6 @@
 {
   "graphs": {
-    "main": "./app/graph.py:agent"
+    "main": "src/graph/agent.py:agent"
   },
   "env": ".env",
   "python_version": "3.11",
